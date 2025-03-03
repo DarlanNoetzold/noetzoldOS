@@ -1,36 +1,25 @@
 import * as styled from "styled-components";
 
 const GlobalStyle = styled.createGlobalStyle`
-  /* Removido cursor: default e user-select: none do universal */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-variant-numeric: tabular-nums;
-    -webkit-tap-highlight-color: transparent;
-    text-rendering: optimizeLegibility;
-  }
-
-  /* Para elementos “antes” e “depois” */
+  *,
   *::before,
   *::after {
-    box-sizing: inherit;
+    border: 0;
+    box-sizing: border-box;
+    cursor: default;
+    font-variant-numeric: tabular-nums;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
 
-  /* Ajustes de foco e outline */
-  :focus {
-    outline: 0; /* Se quiser remover, mas lembre da acessibilidade */
-  }
-
-  /* Corpo e HTML */
-  html,
-  body {
+  body,
+  html {
     font-family: ${({ theme }) => theme.formats.systemFont};
-    font-size: 15px; /* Ajuste de tamanho de fonte */
-    line-height: 1.5; /* Melhora legibilidade */
-    background-color: ${({ theme }) => theme.colors.background};
-    /* Transição suave de background quando trocar tema ou wallpaper */
-    transition: background-color 0.5s ease;
   }
 
   body {
@@ -40,8 +29,8 @@ const GlobalStyle = styled.createGlobalStyle`
     text-size-adjust: none;
   }
 
-  /* Altura total do HTML, com fallback para iOS/Firefox */
   html {
+    background-color: ${({ theme }) => theme.colors.background};
     /* stylelint-disable value-no-vendor-prefix */
     height: -webkit-fill-available;
     height: -moz-available;
@@ -70,32 +59,22 @@ const GlobalStyle = styled.createGlobalStyle`
     }
   }
 
-  /* Seleção de texto */
-  ::selection {
+  input::selection,
+  textarea::selection {
     background-color: rgb(0, 120, 215);
     color: #fff;
   }
 
-  /* Permite seleção de texto em inputs e textarea (útil em formulários) */
   input,
   textarea {
-    user-select: text;
     cursor: text;
+    user-select: text;
   }
 
-  /* Em caso de querer proibir seleção em elementos específicos, faça:
-     .no-select {
-       user-select: none;
-       cursor: default;
-     }
-   */
-
-  /* Imagens em <picture> ocupam largura total sem espaçamento extra */
   picture > img {
     display: block;
   }
 
-  /* Listas sem bullets */
   ol,
   ul {
     list-style: none;
