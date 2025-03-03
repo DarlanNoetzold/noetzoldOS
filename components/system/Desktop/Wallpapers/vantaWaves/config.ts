@@ -1,3 +1,5 @@
+// components/system/Desktop/Wallpapers/vantaWaves/config.ts
+
 import { type VantaWavesConfig } from "components/system/Desktop/Wallpapers/vantaWaves/types";
 
 export const config: VantaWavesConfig = {
