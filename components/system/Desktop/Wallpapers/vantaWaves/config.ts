@@ -2,32 +2,32 @@ import { type VantaWavesConfig } from "components/system/Desktop/Wallpapers/vant
 
 export const config: VantaWavesConfig = {
   camera: {
-    far: 500,
-    fov: 35,
+    far: 400,
+    fov: 30,
     near: 0.1,
   },
-  color: "hsl(330, 60%, 40%)",
-  colorCycleSpeed: 5,
+  color: "hsl(225, 40%, 20%)",
+  colorCycleSpeed: 10,
   forceAnimate: true,
-  hh: 80,
-  hue: 330,
-  lightness: 40,
+  hh: 50,
+  hue: 225,
+  lightness: 20,
   material: {
     options: {
-      fog: true,
+      fog: false,
       wireframe: false,
     },
   },
-  saturation: 60,
-  shininess: 50,
-  waveHeight: 30,
-  waveSpeed: 0.5,
-  ww: 80,
+  saturation: 40,
+  shininess: 35,
+  waveHeight: 20,
+  waveSpeed: 0.25,
+  ww: 50,
 };
 
 export const disableControls = {
   gyroControls: false,
-  mouseControls: true,
-  mouseEase: true,
-  touchControls: true,
+  mouseControls: false,
+  mouseEase: false,
+  touchControls: false,
 };
