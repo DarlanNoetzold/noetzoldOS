@@ -17,7 +17,6 @@ const vantaWaves = (
 ): void => {
   const { VANTA: { current: currentEffect } = {} } = window;
 
-  // Tenta destruir efeito anterior (se existir)
   try {
     currentEffect?.destroy();
   } catch {
@@ -26,13 +25,11 @@ const vantaWaves = (
 
   if (!el || typeof WebGLRenderingContext === "undefined") return;
 
-  // Carrega libs (Three + VantaWaves)
   loadFiles(libs, true).then(() => {
     const { VANTA: { WAVES } = {} } = window;
 
     if (WAVES) {
       try {
-        // Inicializa Vanta Waves
         WAVES({
           el,
           ...disableControls,
@@ -43,25 +40,27 @@ const vantaWaves = (
         const container = el;
         container.style.position = "relative";
 
-        // Cria watermark "noetzold.tech"
-        const watermark = document.createElement("div");
-        watermark.textContent = "noetzold.tech";
+        // Texto grande ao centro
+        const textMask = document.createElement("div");
+        textMask.textContent = "noetzold.tech".toUpperCase();
 
-        // Define estilo (agora com zIndex alto)
-        Object.assign(watermark.style, {
-          bottom: "10px",
+        Object.assign(textMask.style, {
           color: "#ffffff",
-          fontSize: "0.875rem",
-          fontWeight: "bold",
-          opacity: "0.8",
+          fontSize: "15vw",
+          fontWeight: "900",
+          left: "50%",
+          letterSpacing: "0.2em",
+          mixBlendMode: "difference",
           pointerEvents: "none",
           position: "absolute",
-          right: "10px",
-          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.6)",
+          textAlign: "center",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          whiteSpace: "nowrap",
           zIndex: "9999",
         });
 
-        container.append(watermark);
+        container.append(textMask);
       } catch {
         fallback?.();
       }
