@@ -47,7 +47,7 @@ export const runStableDiffusion = async (
 
   globalThis.tvmjsGlobalEnv.prompts = prompts?.length
     ? prompts
-    : [["A photo of an astronaut riding a elephant on jupiter", ""]];
+    : [["An image with java code forming the word noetzold.tech in the center", "An image with java code forming the word noetzold.tech in the center"]];
 
   await globalThis.tvmjsGlobalEnv.asyncOnGenerate();
 };
