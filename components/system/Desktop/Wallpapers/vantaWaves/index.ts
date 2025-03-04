@@ -1,39 +1,43 @@
-// components/system/Desktop/Wallpapers/vantaWaves/index.ts
-
+import { type WallpaperConfig } from "components/system/Desktop/Wallpapers/types";
+import { disableControls } from "components/system/Desktop/Wallpapers/vantaWaves/config";
+import { type VantaWavesConfig } from "components/system/Desktop/Wallpapers/vantaWaves/types";
 import { loadFiles } from "utils/functions";
 
-export const libs: string[] = [];
+export const libs = [
+  "/System/Vanta.js/three.min.js",
+  "/System/Vanta.js/vanta.waves.min.js",
+];
 
-const SingleImageWallpaper = async (el?: HTMLElement | null): Promise<void> => {
-  if (!el) return;
+const vantaWaves = (
+  el: HTMLElement | null,
+  config?: WallpaperConfig,
+  fallback?: () => void
+): void => {
+  const { VANTA: { current: currentEffect } = {} } = window;
 
   try {
-    // Se houver um efeito Vanta antigo, destrói (opcional)
-    window?.VANTA?.current?.destroy?.();
-
-    // 1. Carrega libs (se tiver, aqui está vazio).
-    await loadFiles(libs);
-
-    // 2. Cria um novo <div> para ser o "fundo".
-    const wallpaperDiv = document.createElement("div");
-
-    // 3. Define estilo no <div> (NÃO mexemos em el.style, fugindo do no-param-reassign).
-    Object.assign(wallpaperDiv.style, {
-      background:
-        'url("https://cdn.wallpaperhub.app/cloudcache/b/d/7/6/4/b/bd764bb25d49a05105060185774ba14cd2c846f7.jpg") no-repeat center center / cover',
-      height: "100%",
-      left: "0",
-      position: "fixed",
-      top: "0",
-      width: "100%",
-      zIndex: "-1",
-    });
-
-    // 4. Anexa o <div> dentro de el.
-    el.append(wallpaperDiv);
+    currentEffect?.destroy();
   } catch {
-    // Se quiser, chame fallback aqui, caso algo dê errado
+    // Failed to cleanup effect
   }
+
+  if (!el || typeof WebGLRenderingContext === "undefined") return;
+
+  loadFiles(libs, true).then(() => {
+    const { VANTA: { WAVES } = {} } = window;
+
+    if (WAVES) {
+      try {
+        WAVES({
+          el,
+          ...disableControls,
+          ...(config as VantaWavesConfig),
+        });
+      } catch {
+        fallback?.();
+      }
+    }
+  });
 };
 
-export default SingleImageWallpaper;
+export default vantaWaves;
