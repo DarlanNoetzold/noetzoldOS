@@ -9,7 +9,7 @@ export const config: VantaWavesConfig = {
     near: 0.1,
   },
   color: "hsl(225, 40%, 20%)",
-  colorCycleSpeed: 10,
+  colorCycleSpeed: 10, // Movido para antes de material
   forceAnimate: true,
   hh: 50,
   hue: 225,
